@@ -18,3 +18,7 @@
 	display: inline-block;
 	margin-top: 20px;
 }
+.desc-card-row {
+	overflow: hidden;
+	margin-bottom: 50px;
+}
