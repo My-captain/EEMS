@@ -1,25 +1,20 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ya0ie
-  Date: 2018/6/22
-  Time: 11:35
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page import="cn.njucm.po.User"%>
-<%@ page import="cn.njucm.dao.DBUtil"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+
 <html>
 <head>
-<title>主页</title>
+<meta charset="UTF-8">
+<title>个人信息修改</title>
 <link href="./static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="./static/bootstrap/css/bootstrap.css" rel="stylesheet">
 <link href="./static/bootstrap/css/dashboard.css" rel="stylesheet">
 <link rel="stylesheet" href="./static/css/public.css">
 <link rel="stylesheet" href="./static/css/headerAndFooter.css">
 <link rel="stylesheet" href="./static/css/index.css">
+<link rel="stylesheet" href="./static/css/search.css">
 
 </head>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page import="cn.njucm.po.User"%>
+<%@ page import="cn.njucm.dao.DBUtil"%>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top bg-primary"
 		style="margin-bottom: 20px; height: 70px;">
@@ -46,56 +41,65 @@
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
 					<li><a href="./index.html"><h4>团队成员</h4></a></li>
-					<li class="active"><a href="#"><h4>员工信息列表</h4></a></li>
-					<li><a href="./search.html"><h4>员工检索</h4></a></li>
-					<li><a href="./user_update.jsp"><h4>个人信息修改</h4></a></li>
+					<li><a href="./index.jsp"><h4>员工信息列表</h4></a></li>
+					<li><a href="search.html"><h4>员工检索</h4></a></li>
+					<li class="active"><a href="#"><h4>个人信息修改</h4></a></li>
 					<li><a href="#"><h4>员工信息修改</h4></a></li>
-					
+
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main "
-				style="margin-top: 5px; margin-bottom: 40px">
-				<div class="table-responsives ">
-					<table class="table table-striped ">
-						<thead>
-							<tr>
-								<th class="col-md-1">编号</th>
-								<th class="col-md-2">用户名</th>
-								<th class="col-md-1">密码</th>
-								<th class="col-md-2">姓名</th>
-								<th class="col-md-1">年龄</th>
-								<th class="col-md-1">性别</th>
-								<th class="col-md-2">生日</th>
-								<th>工资</th>
-								<th class="col-md-3">操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<%
-									ArrayList<User> users = null;
-									users = DBUtil.selectAllUser();
-									for (User user : users) {
-								%>
-								<td><%=user.getId()%></td>
-								<td><%=user.getUsername()%></td>
-								<td><%=user.getPassword()%></td>
-								<td><%=user.getRealname()%></td>
-								<td><%=user.getAge()%></td>
-								<td><%=user.getSex()%></td>
-								<td><%=user.getBirthday()%></td>
-								<td><%=user.getSalary()%></td>
-								<td><a class="btn btn-primary btn-sm"
-									href="javascript:edit(<%=user.getId()%>)">编辑</a> <a
-									class="btn btn-danger btn-sm"
-									href="javascript:del(<%=user.getId()%>)">删除</a></td>
-							</tr>
-							<%
-								}
-							%>
-						</tbody>
-					</table>
+				style="margin-top: 5px; margin-bottom: 40px;padding-right: 400px;padding-bottom: 60px;padding-top: 60px;">
+				<%
+					User user = null;
+					request.setCharacterEncoding("UTF-8");
+					String username=((User)session.getAttribute("user")).getUsername();
+					user = DBUtil.SelectByUsername(username);
+				%>
+				<div id="form-container" style="margin-left: 40%">
+					<form id="edit_form" action="./edit_save.jsp" method="post">
+						<div class="form-group">
+							<label>用户名</label> <input type="text" class="form-control"
+								id="edit_username" name="username" value=<%=user.getUsername()%>>
+						</div>
+						<div class="form-group">
+							<label>密码</label> <input type="password" class="form-control"
+								id="edit_password" name="password" value="">
+						</div>
+						<div class="form-group">
+							<label>确认密码</label> <input type="password" class="form-control"
+								id="edit_spassword" name="spassword" value="">
+						</div>
+						<div class="form-group">
+							<label>真实姓名</label> <input type="text" class="form-control"
+								id="edit_realname" name="realname" value=<%=user.getRealname()%>>
+						</div>
+						<div class="form-group">
+							<label>年龄</label> <input type="text" class="form-control"
+								id="edit_age" name="age" value=<%=user.getAge()%>>
+						</div>
+						<div class="form-group">
+							<label>性别</label> <input type="text" class="form-control"
+								id="edit_sex" name="sex" value=<%=user.getSex()%>>
+						</div>
+						<div class="form-group">
+							<label>生日</label> <input type="text" class="form-control"
+								id="edit_birthday" name="birthday" value=<%=user.getBirthday()%>>
+						</div>
+						<div class="form-group">
+							<label>薪水</label> <input type="text" class="form-control"
+								id="edit_salary" name="salary" value=<%=user.getSalary()%>>
+						</div>
+						<input class="btn btn-danger" type="submit" id="edit_ok"
+							value="提交"> &ensp;&ensp;&ensp;&ensp;&ensp;&ensp; <input
+							class="btn btn-warning" type="reset" id="edit_no" value="重置">
+					</form>
 				</div>
+
+
+
+
+
 			</div>
 		</div>
 	</div>
@@ -126,22 +130,21 @@
 <script type="text/javascript"
 	src="static/js/public/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-	function edit(e) {
-		window.location.href = "./edit.jsp?userId=" + e;
-	}
-	function del(e) {
-		if (confirm("确认删除id为" + e + "的用户？")) {
+	function search() {
+		if ($("#search-input-keyword").val() == "") {
+			alert("请输入关键字");
+		} else {
+			var keyword = $("#search-input-keyword").val();
 			$.ajax({
-				url : "./delete.jsp",
+				url : "./search.jsp",
 				data : {
-					"userId" : e
+					keyword : keyword
 				},
-				success : function() {
-					window.location.reload();
+				success : function(data) {
+					console.log(data);
 				}
 			});
 		}
 	}
 </script>
-
 </html>

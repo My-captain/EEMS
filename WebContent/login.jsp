@@ -14,7 +14,7 @@
 		request.setCharacterEncoding("UTF-8");
 		String username = request.getParameter("user");
 		String password = request.getParameter("pwd");
-
+		
 		User user = DBUtil.SelectByUsername(username);
 		if (user == null) {
 			out.print("<script>alert('该用户名未注册！'); window.location='./htmls/login.html'</script>");

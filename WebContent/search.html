@@ -38,11 +38,14 @@
                     <li><a href="./index.html"><h4>团队成员</h4></a></li>
                     <li><a href="./index.jsp"><h4>员工信息列表</h4></a></li>
                     <li class="active"><a href="#"><h4>员工检索</h4></a></li>
+                    <li><a href="./user_update.jsp"><h4>个人信息修改</h4></a></li>
+                    <li><a href="#"><h4>员工信息修改</h4></a></li>
+                    
                 </ul>
             </div>
-            <div id="search-input-username" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main "
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main "
                  style="margin-top: 5px; margin-bottom: 40px">
-                <div class="input-group">
+                <div id="search-input-username" class="input-group">
                     <input id="search-input-keyword" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
                     <span onclick="javascript:search()" class="input-group-addon" id="basic-addon1">
                         <span class="glyphicon glyphicon-search"></span>
@@ -88,66 +91,10 @@
                     keyword: keyword
                 },
                 success : function(data) {
-                    data = $.parseJSON(data);
-                    // console.log(data);
-                    var result_table = "<div class=\"table-responsives \">\n" +
-                        "\t\t\t\t\t<table class=\"table table-striped \">\n" +
-                        "\t\t\t\t\t\t<thead>\n" +
-                        "\t\t\t\t\t\t\t<tr>\n" +
-                        "\t\t\t\t\t\t\t\t<th class=\"col-md-1\">编号</th>\n" +
-                        "\t\t\t\t\t\t\t\t<th class=\"col-md-2\">用户名</th>\n" +
-                        "\t\t\t\t\t\t\t\t<th class=\"col-md-1\">密码</th>\n" +
-                        "\t\t\t\t\t\t\t\t<th class=\"col-md-2\">姓名</th>\n" +
-                        "\t\t\t\t\t\t\t\t<th class=\"col-md-1\">年龄</th>\n" +
-                        "\t\t\t\t\t\t\t\t<th class=\"col-md-1\">性别</th>\n" +
-                        "\t\t\t\t\t\t\t\t<th class=\"col-md-2\">生日</th>\n" +
-                        "\t\t\t\t\t\t\t\t<th>工资</th>\n" +
-                        "\t\t\t\t\t\t\t\t<th class=\"col-md-3\">操作</th>\n" +
-                        "\t\t\t\t\t\t\t</tr>\n" +
-                        "\t\t\t\t\t\t</thead>\n" +
-                        "\t\t\t\t\t\t<tbody>\n";
-                    for (var user in data) {
-                        result_table += "<tr>";
-                        result_table += "<td>"+data[user]['id']+"</td>";
-                        result_table += "<td>"+data[user]['username']+"</td>";
-                        result_table += "<td>"+data[user]['password']+"</td>";
-                        result_table += "<td>"+data[user]['realname']+"</td>";
-                        result_table += "<td>"+data[user]['age']+"</td>";
-                        result_table += "<td>"+data[user]['sex']+"</td>";
-                        result_table += "<td>"+data[user]['birthday']+"</td>";
-                        result_table += "<td>"+data[user]['salary']+"</td>";
-                        result_table += "<td><a class=\"btn btn-primary btn-sm\"\n" +
-                            "\t\t\t\t\t\t\t\t\thref=\"javascript:edit("
-                            +data[user]['id']
-                            +")\">编辑</a> <a\n" +
-                            "\t\t\t\t\t\t\t\t\tclass=\"btn btn-danger btn-sm\"\n" +
-                            "\t\t\t\t\t\t\t\t\thref=\"javascript:del("+data[user]['id']+")\">删除</a></td>\n" +
-                            "\t\t\t\t\t\t\t</tr>\n"
-                    }
-                    result_table += "\t\t\t\t\t\t</tbody>\n" +
-                        "\t\t\t\t\t</table>\n" +
-                        "\t\t\t\t</div>";
-                    $("#search-input-username").empty();
-                    $("#search-input-username").append(result_table);
+                    console.log(data);
                 }
             });
         }
     }
-    function edit(e) {
-		window.location.href = "./edit.jsp?userId=" + e;
-	}
-	function del(e) {
-		if (confirm("确认删除id为" + e + "的用户？")) {
-			$.ajax({
-				url : "./delete.jsp",
-				data : {
-					"userId" : e
-				},
-				success : function() {
-					window.location.reload();
-				}
-			});
-		}
-	}
 </script>
 </html>

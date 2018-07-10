@@ -221,10 +221,10 @@ public class DBUtil {
         PreparedStatement ps=null;
         ResultSet rs=null;
         conn = getConn();
-        String sql="Select * from emp where realname like '%" + keyword + "%'";
-        System.out.println(sql);
+        String sql="Select * from emp where username=?";
         try {
             ps = conn.prepareStatement(sql);
+            ps.setString(1, keyword);
             rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User();

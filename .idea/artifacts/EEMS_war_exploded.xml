@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="EEMS:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/EEMS_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="file-copy" path="E:/JavaLib/jdbc/mysql-connector-java-5.1.39-bin.jar" />
+          <element id="library" level="project" name="mysql-connector-java-5.1.39-bin" />
+        </element>
+        <element id="directory" name="classes">
+          <element id="library" level="project" name="apache-tomcat-7.0" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="EEMS/web/Web" />
+    </root>
+  </artifact>
+</component>
